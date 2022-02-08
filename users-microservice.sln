@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microservice.Web.API", "mic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microservice.Data.Access", "microservice.Data.Access\microservice.Data.Access.csproj", "{E52157C1-0AFF-4735-A2A6-C0777829D60D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microservice.UnitTests", "microservice.UnitTests\microservice.UnitTests.csproj", "{9BCE588F-701B-454F-8BF0-210295D44A25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E52157C1-0AFF-4735-A2A6-C0777829D60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E52157C1-0AFF-4735-A2A6-C0777829D60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E52157C1-0AFF-4735-A2A6-C0777829D60D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BCE588F-701B-454F-8BF0-210295D44A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BCE588F-701B-454F-8BF0-210295D44A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BCE588F-701B-454F-8BF0-210295D44A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BCE588F-701B-454F-8BF0-210295D44A25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
