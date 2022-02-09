@@ -17,19 +17,67 @@ namespace microservice.Data.Access.Services
             _unitOfWork = unitOfWork;
         }
 
-        public bool Create(User user)
+        public User GetById(Guid Id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Users.GetByIdIncluded(Id);
         }
 
-        public bool Delete(Guid id)
+
+        public IEnumerable<User> GetAllAsQueryable()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Users.GetAllAsQueryable();
+        }
+
+
+        public bool Create(User user)
+        {
+            user.CreateDate = DateTime.Now;
+            user.IsActive = true;
+            _unitOfWork.Users.Add(user);
+            return _unitOfWork.Commit() > 0;
         }
 
         public bool Update(User user)
         {
-            throw new NotImplementedException();
+            var oldUser = _unitOfWork.Users.Where(x => x.Id == user.Id).FirstOrDefault();
+            oldUser.FirstName = user.FirstName;
+            oldUser.LastName = user.LastName;
+            _unitOfWork.Users.Update(oldUser);
+            return _unitOfWork.Commit() > 0;
+
+        }
+        public bool Delete(User user)
+        {
+            user.IsActive = false;
+            _unitOfWork.Users.Update(user);
+            return _unitOfWork.Commit() > 0;
+        }
+
+
+        public bool SetAuthenticationCode(string code, User user)
+        {
+            var userCode = _unitOfWork.UsersCodes.Where(x => x.UserId == user.Id).FirstOrDefault();
+
+            //Create usercode if doesn't exist otherwise update the current one with a new code 
+            if (userCode == null)
+            {
+                userCode = new UserCode() { UserId = user.Id, Code = code};
+                _unitOfWork.UsersCodes.Add(userCode);
+            }
+            else
+            {
+                userCode.Code = code;
+                _unitOfWork.UsersCodes.Update(userCode);
+            }
+
+            return _unitOfWork.Commit() > 0;
+        }
+
+        public bool AuthenticateCode(string code, User user)
+        {
+            //Check if code is correct
+            var userCode = _unitOfWork.UsersCodes.Where(x => x.Code == code && x.UserId == user.Id).FirstOrDefault();
+            return userCode != null;
         }
     }
 }

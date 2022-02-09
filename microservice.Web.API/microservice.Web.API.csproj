@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\microservice.Data.Access\microservice.Data.Access.csproj" />
     <ProjectReference Include="..\microservice.Data.SQL\microservice.Data.SQL.csproj" />
     <ProjectReference Include="..\microservice.Infrastructure\microservice.Infrastructure.csproj" />
   </ItemGroup>

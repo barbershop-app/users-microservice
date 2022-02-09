@@ -11,9 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microservice.Data.SQL", "mi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microservice.Web.API", "microservice.Web.API\microservice.Web.API.csproj", "{FE23C8B8-7F3C-4578-A217-A370C61B256D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microservice.Data.Access", "microservice.Data.Access\microservice.Data.Access.csproj", "{E52157C1-0AFF-4735-A2A6-C0777829D60D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "microservice.Data.Access", "microservice.Data.Access\microservice.Data.Access.csproj", "{E52157C1-0AFF-4735-A2A6-C0777829D60D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microservice.UnitTests", "microservice.UnitTests\microservice.UnitTests.csproj", "{9BCE588F-701B-454F-8BF0-210295D44A25}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{48226B4D-0CE8-43B8-8C03-B3AEFCFF4995}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "microservice.UnitTest", "microservice.UnitTest\microservice.UnitTest.csproj", "{0E527A58-F0E0-4BF9-8137-EDC0431344B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +46,10 @@ Global
 		{E52157C1-0AFF-4735-A2A6-C0777829D60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E52157C1-0AFF-4735-A2A6-C0777829D60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E52157C1-0AFF-4735-A2A6-C0777829D60D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9BCE588F-701B-454F-8BF0-210295D44A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BCE588F-701B-454F-8BF0-210295D44A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BCE588F-701B-454F-8BF0-210295D44A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BCE588F-701B-454F-8BF0-210295D44A25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E527A58-F0E0-4BF9-8137-EDC0431344B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E527A58-F0E0-4BF9-8137-EDC0431344B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E527A58-F0E0-4BF9-8137-EDC0431344B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E527A58-F0E0-4BF9-8137-EDC0431344B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

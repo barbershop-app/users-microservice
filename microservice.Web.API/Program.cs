@@ -1,4 +1,6 @@
 using microservice.Core;
+using microservice.Core.IServices;
+using microservice.Data.Access.Services;
 using microservice.Data.SQL;
 using microservice.Web.API.Authentication;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ builder.Services.AddDbContext<UsersContext>(options => options.UseSqlServer(buil
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUnitOfWork ,UnitOfWork>();
+builder.Services.AddTransient<IUsersService, UsersService>();
 
 builder.Host.UseSerilog((context, lc) => lc
 .ReadFrom.Configuration(context.Configuration)

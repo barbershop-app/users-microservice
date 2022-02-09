@@ -14,8 +14,8 @@ namespace microservice.Data.SQL
         {
         }
 
-        //Tables
         public DbSet<User> Users { get; set; }
+        public DbSet<UserCode> UserCode { get; set; }
 
     }
 }

@@ -9,8 +9,13 @@ namespace microservice.Core.IServices
 {
     public interface IUsersService
     {
+        User GetById(Guid id);
+        IEnumerable<User> GetAllAsQueryable();
         public bool Create(User user);
         public bool Update(User user);
-        public bool Delete(Guid id);
+        public bool Delete(User user);
+
+        public bool SetAuthenticationCode(string code, User user);
+        public bool AuthenticateCode(string code, User user);
     }
 }

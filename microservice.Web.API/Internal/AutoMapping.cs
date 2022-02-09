@@ -9,6 +9,7 @@ namespace microservice.Web.API.Internal
         public AutoMapping()
         {
             CreateMap<UserDTOs.Create, User>();
+            CreateMap<UserDTOs.Update, User>();
         }
     }
 }

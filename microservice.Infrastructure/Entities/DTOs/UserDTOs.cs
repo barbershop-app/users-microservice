@@ -11,12 +11,21 @@ namespace microservice.Infrastructure.Entities.DTOs
         public class Create
         {
             public string PhoneNumber { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
         }
 
-        public class Update : Create
+        public class Update 
         {
             public Guid Id { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
         }
 
+        public class Authenticate
+        {
+            public string PhoneNumber { get; set; }
+            public string code { get; set; }
+        }
     }
 }

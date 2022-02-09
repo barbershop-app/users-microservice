@@ -18,10 +18,12 @@ namespace microservice.Data.SQL
         }
 
         private IUserRepository _userRepository;
+        private IUserCodeRepository _usersCodesRepository;
 
 
 
         public IUserRepository Users => _userRepository ??= new UserRepository(_context);
+        public IUserCodeRepository UsersCodes => _usersCodesRepository ??= new UserCodeRepository(_context);
 
 
         public int Commit()
