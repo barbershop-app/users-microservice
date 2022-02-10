@@ -79,5 +79,13 @@ namespace microservice.Data.Access.Services
             var userCode = _unitOfWork.UsersCodes.Where(x => x.Code == code && x.UserId == user.Id).FirstOrDefault();
             return userCode != null;
         }
+
+        public bool UserIsAdmin(Guid id)
+        {
+            var admin = _unitOfWork.Admins.GetAllAsQueryable().Where(x => x.UserId == id).FirstOrDefault();
+            return admin != null;
+        }
+
+
     }
 }

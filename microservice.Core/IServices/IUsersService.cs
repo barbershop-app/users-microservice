@@ -17,5 +17,6 @@ namespace microservice.Core.IServices
 
         public bool SetAuthenticationCode(string code, User user);
         public bool AuthenticateCode(string code, User user);
+        public bool UserIsAdmin(Guid id);
     }
 }

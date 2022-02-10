@@ -10,6 +10,7 @@ namespace microservice.Core
     public interface IUnitOfWork
     {
         IUserRepository Users { get; }
+        IAdminRepository Admins { get; }
         IUserCodeRepository UsersCodes { get; }
 
         int Commit();

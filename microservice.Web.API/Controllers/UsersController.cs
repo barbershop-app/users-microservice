@@ -168,7 +168,7 @@ namespace microservice.Web.API.Controllers
         [HttpPost]
         [Route("Authenticate")]
         public IActionResult Authenticate([FromBody] UserDTOs.Authenticate dto)
-        {
+        { 
             try
             {
                 var user = _usersService.GetAllAsQueryable().Where(x => x.PhoneNumber == dto.PhoneNumber).FirstOrDefault();
@@ -182,8 +182,9 @@ namespace microservice.Web.API.Controllers
                     return Ok(new
                     {
                         id = user.Id,
-                        token = StaticFunctions.GenerateJwtToken(user.Id)
-                    });;
+                        token = StaticFunctions.GenerateJwtToken(user.Id),
+                        isAdmin = _usersService.UserIsAdmin(user.Id)
+                    });
        
 
                 return BadRequest("User has not been authenticated.");

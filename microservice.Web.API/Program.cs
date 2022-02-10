@@ -8,17 +8,19 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddDbContext<UsersContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlCon"), b => b.MigrationsAssembly("microservice.Data.SQL")));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IUnitOfWork ,UnitOfWork>();
-builder.Services.AddTransient<IUsersService, UsersService>();
-
+// Replace the default .NET logger with Serilog
 builder.Host.UseSerilog((context, lc) => lc
 .ReadFrom.Configuration(context.Configuration)
 );
+
+
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<UsersContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlCon"), b => b.MigrationsAssembly("microservice.Data.SQL")));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddTransient<IUnitOfWork ,UnitOfWork>();
+builder.Services.AddTransient<IUsersService, UsersService>();
 
 
 var app = builder.Build();
