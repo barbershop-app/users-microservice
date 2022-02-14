@@ -11,8 +11,6 @@ namespace microservice.Infrastructure.Entities.DTOs
         public class Create
         {
             public string PhoneNumber { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
         }
 
         public class Update 

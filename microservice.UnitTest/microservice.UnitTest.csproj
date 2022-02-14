@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
@@ -16,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\microservice.Core\microservice.Core.csproj" />
+    <ProjectReference Include="..\microservice.Data.Access\microservice.Data.Access.csproj" />
+    <ProjectReference Include="..\microservice.Data.SQL\microservice.Data.SQL.csproj" />
   </ItemGroup>
 
 </Project>

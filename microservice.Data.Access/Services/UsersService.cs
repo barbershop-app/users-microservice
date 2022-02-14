@@ -53,6 +53,13 @@ namespace microservice.Data.Access.Services
             return _unitOfWork.Commit() > 0;
         }
 
+        public bool EraseFromDatabase(User user)
+        {
+            _unitOfWork.Users.Remove(user);
+            return _unitOfWork.Commit() > 0;
+        }
+
+
 
         public bool SetAuthenticationCode(string code, User user)
         {

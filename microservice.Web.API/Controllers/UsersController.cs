@@ -32,6 +32,7 @@ namespace microservice.Web.API.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("GetById/{id}")]
         public IActionResult GetById(Guid id)
@@ -64,6 +65,9 @@ namespace microservice.Web.API.Controllers
         [Route("Create")]
         public IActionResult Create([FromBody] UserDTOs.Create dto)
         {
+            if (dto?.PhoneNumber.Length != 10 || dto?.PhoneNumber.StartsWith("05") == false)
+                return BadRequest("Invalid Phone Number.");
+
             try
             {
                 var user = _usersService.GetAllAsQueryable().Where(x => x.PhoneNumber == dto.PhoneNumber).FirstOrDefault();
@@ -105,6 +109,7 @@ namespace microservice.Web.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         [Route("Update")]
         public IActionResult Update([FromBody] UserDTOs.Update dto)
@@ -134,6 +139,7 @@ namespace microservice.Web.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         [Route("Delete/{id}")]
         public IActionResult Delete(Guid id)
