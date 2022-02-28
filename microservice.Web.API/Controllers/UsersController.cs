@@ -34,6 +34,21 @@ namespace microservice.Web.API.Controllers
 
         [Authorize]
         [HttpGet]
+        [Route("UserIsActive/{id}")]
+        public IActionResult UserIsActive(Guid id)
+        {
+            var user = _usersService.GetById(id);
+
+            if (user != null && user.IsActive)
+                return Ok("User is active");
+
+
+            return BadRequest("User is not active");
+        }
+
+
+        [Authorize]
+        [HttpGet]
         [Route("GetById/{id}")]
         public IActionResult GetById(Guid id)
         {
@@ -42,7 +57,7 @@ namespace microservice.Web.API.Controllers
                 var user = _usersService.GetById(id);
 
                 if (user == null)
-                    return Ok(null);
+                    return BadRequest("User does not exist.");
 
 
                 return Ok(new
@@ -57,7 +72,7 @@ namespace microservice.Web.API.Controllers
             catch(Exception ex)
             {
                 _logger.LogError("The GetById function threw this exception : ", ex.ToString());
-                return BadRequest("Failed to get user.");
+                return BadRequest("Something went wrong.");
             }
         }
 
@@ -116,15 +131,15 @@ namespace microservice.Web.API.Controllers
         {
             try
             {
-                var tempUser = _usersService.GetById(dto.Id);
+                var oldUser = _usersService.GetById(dto.Id);
 
-                if (tempUser == null)
+                if (oldUser == null)
                     return BadRequest("User does not exist.");
 
 
                 var user = _mapper.Map<User>(dto);
 
-                var res = _usersService.Update(user);
+                var res = _usersService.Update(oldUser, user);
 
                 if (res)
                     return Ok("User details have been updated.");

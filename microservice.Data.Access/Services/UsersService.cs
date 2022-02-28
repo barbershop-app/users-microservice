@@ -37,9 +37,8 @@ namespace microservice.Data.Access.Services
             return _unitOfWork.Commit() > 0;
         }
 
-        public bool Update(User user)
+        public bool Update(User oldUser, User user)
         {
-            var oldUser = _unitOfWork.Users.Where(x => x.Id == user.Id).FirstOrDefault();
             oldUser.FirstName = user.FirstName;
             oldUser.LastName = user.LastName;
             _unitOfWork.Users.Update(oldUser);

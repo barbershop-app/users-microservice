@@ -12,7 +12,7 @@ namespace microservice.Core.IServices
         User GetById(Guid id);
         IEnumerable<User> GetAllAsQueryable();
         public bool Create(User user);
-        public bool Update(User user);
+        public bool Update(User oldUser, User user);
         public bool Delete(User user);
         public bool EraseFromDatabase(User user);
 
