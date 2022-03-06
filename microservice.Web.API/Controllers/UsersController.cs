@@ -34,7 +34,7 @@ namespace microservice.Web.API.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("UserIsActive/{id}")]
+        [Route("IsActive/{id}")]
         public IActionResult UserIsActive(Guid id)
         {
             var user = _usersService.GetById(id);
@@ -71,7 +71,7 @@ namespace microservice.Web.API.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogError("The GetById function threw this exception : ", ex.ToString());
+                _logger.LogError(ex.ToString());
                 return BadRequest("Something went wrong.");
             }
         }
@@ -119,8 +119,8 @@ namespace microservice.Web.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("The create function threw this exception : ", ex.ToString());
-                return BadRequest("Failed to create user.");
+                _logger.LogError(ex.ToString());
+                return BadRequest("Something went wrong.");
             }
         }
 
@@ -149,8 +149,8 @@ namespace microservice.Web.API.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogError("The Update function threw this exception : ", ex.ToString());
-                return BadRequest("Failed to update user details.");
+                _logger.LogError(ex.ToString());
+                return BadRequest("Something went wrong.");
             }
         }
 
@@ -181,8 +181,8 @@ namespace microservice.Web.API.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogError("The Delete function threw this exception : ", ex.ToString());
-                return BadRequest("User has not been deleted.");
+                _logger.LogError(ex.ToString());
+                return BadRequest("Something went wrong.");
             }
         }
 
@@ -213,8 +213,8 @@ namespace microservice.Web.API.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogError("The Authenticate function threw this exception : ", ex.ToString());
-                return BadRequest("User has not been authenticated.");
+                _logger.LogError(ex.ToString());
+                return BadRequest("Something went wrong.");
             }
         }
     }
