@@ -16,6 +16,15 @@ builder.Host.UseSerilog((context, lc) => lc
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+options.AddDefaultPolicy(builder =>
+{
+    builder.AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials();
+}));
+
 builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(type => type.ToString()));
 builder.Services.AddDbContext<UsersContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlCon"), b => b.MigrationsAssembly("microservice.Data.SQL")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
