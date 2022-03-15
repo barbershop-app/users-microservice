@@ -3,7 +3,6 @@ using microservice.Core.IServices;
 using microservice.Infrastructure.Entities.DB;
 using microservice.Infrastructure.Entities.DTOs;
 using microservice.Infrastructure.Utils;
-using microservice.Web.API.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,15 +15,19 @@ namespace microservice.Web.API.Controllers
         readonly IMapper _mapper;
         readonly ILogger<UsersController> _logger;
         readonly IUsersService _usersService;
+        readonly IServiceScopeFactory _serviceScopeFactory;
+        readonly IHttpClientService _httpClientService;
 
-        public UsersController(IMapper mapper, ILogger<UsersController> logger, IUsersService usersService)
+        public UsersController(IMapper mapper, ILogger<UsersController> logger, IUsersService usersService, IServiceScopeFactory serviceScopeFactory, IHttpClientService httpClientService)
         {
             _mapper = mapper;
             _logger = logger;
             _usersService = usersService;
+            _serviceScopeFactory = serviceScopeFactory;
+            _httpClientService = httpClientService;
         }
 
-        [Authorize]
+
         [HttpGet]
         [Route("IsLoggedIn")]
         public IActionResult IsLoggedIn()
@@ -32,7 +35,6 @@ namespace microservice.Web.API.Controllers
             return Ok();
         }
 
-        [Authorize]
         [HttpGet]
         [Route("IsActive/{id}")]
         public IActionResult UserIsActive(Guid id)
@@ -47,7 +49,6 @@ namespace microservice.Web.API.Controllers
         }
 
 
-        [Authorize]
         [HttpGet]
         [Route("GetById/{id}")]
         public IActionResult GetById(Guid id)
@@ -69,12 +70,13 @@ namespace microservice.Web.API.Controllers
                     isActive = user.IsActive
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
                 return BadRequest("Something went wrong.");
             }
         }
+
 
         [HttpPost]
         [Route("Create")]
@@ -106,12 +108,20 @@ namespace microservice.Web.API.Controllers
                     if (res)
                     {
                         //Send SMS with verification code
-                        Task.Run(() =>
-                        {
-                         
-                        });
+                        //Task.Run(() =>
+                        //{
+                        //    using (var scope = _serviceScopeFactory.CreateScope())
+                        //    {
 
-                        return Ok("Verficitaion code has been sent.");
+                        //        var httpClientService = scope.ServiceProvider.GetService<IHttpClientService>();
+
+                        //        httpClientService.SendSMS(user.PhoneNumber, code);
+                        //    }
+
+                        //});
+
+
+                        return Ok("The Verficitaion code is being sent.");
                     }
                 }
 
@@ -124,7 +134,6 @@ namespace microservice.Web.API.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         [Route("Update")]
         public IActionResult Update([FromBody] UserDTOs.Update dto)
@@ -154,7 +163,7 @@ namespace microservice.Web.API.Controllers
             }
         }
 
-        [Authorize]
+
         [HttpPost]
         [Route("Delete/{id}")]
         public IActionResult Delete(Guid id)
@@ -203,7 +212,6 @@ namespace microservice.Web.API.Controllers
                     return Ok(new
                     {
                         id = user.Id,
-                        token = StaticFunctions.GenerateJwtToken(user.Id),
                         isAdmin = _usersService.UserIsAdmin(user.Id)
                     });
        

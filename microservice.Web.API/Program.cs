@@ -2,7 +2,6 @@ using microservice.Core;
 using microservice.Core.IServices;
 using microservice.Data.Access.Services;
 using microservice.Data.SQL;
-using microservice.Web.API.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -25,23 +24,23 @@ options.AddDefaultPolicy(builder =>
     .AllowCredentials();
 }));
 
+
+builder.Services.AddHttpClient("localhost").ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+{
+    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+});
+
 builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(type => type.ToString()));
 builder.Services.AddDbContext<UsersContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlCon"), b => b.MigrationsAssembly("microservice.Data.SQL")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IUnitOfWork ,UnitOfWork>();
 builder.Services.AddTransient<IUsersService, UsersService>();
+builder.Services.AddScoped<IHttpClientService, HttpClientService>();
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
+app.UseDeveloperExceptionPage();
 
 app.UseSwagger();
 
@@ -58,8 +57,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseAuthentication();
-
-app.UseMiddleware<JWTMiddleware>();
 
 app.MapControllers();
 
