@@ -35,10 +35,10 @@ namespace microservice.Web.API.Controllers
             var user = _usersService.GetById(id);
 
             if (user != null && user.IsActive)
-                return Ok("User is active");
+                return Ok(new {message = "User is active" });
 
 
-            return BadRequest("User is not active");
+            return BadRequest(new { message = "User is not active" });
         }
 
 
@@ -51,7 +51,7 @@ namespace microservice.Web.API.Controllers
                 var user = _usersService.GetById(id);
 
                 if (user == null)
-                    return BadRequest("User does not exist.");
+                    return BadRequest(new { message = "User does not exist." });
 
 
                 return Ok(new
@@ -66,7 +66,7 @@ namespace microservice.Web.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return BadRequest("Something went wrong.");
+                return BadRequest(new { message = "Something went wrong." });
             }
         }
 
@@ -76,14 +76,14 @@ namespace microservice.Web.API.Controllers
         public IActionResult Create([FromBody] UserDTOs.Create dto)
         {
             if (dto?.PhoneNumber.Length != 10 || dto?.PhoneNumber.StartsWith("05") == false)
-                return BadRequest("Invalid Phone Number.");
+                return BadRequest(new {message = "Invalid Phone Number." });
 
             try
             {
                 var user = _usersService.GetAllAsQueryable().Where(x => x.PhoneNumber == dto.PhoneNumber).FirstOrDefault();
 
                 if (user != null && !user.IsActive)
-                    return BadRequest("This phone number is disabled.");
+                    return BadRequest(new { message = "This phone number is disabled." });
 
                 var res = true;
 
@@ -119,16 +119,16 @@ namespace microservice.Web.API.Controllers
                         //});
 
 
-                        return Ok("The Verficitaion code is being sent.");
+                        return Ok(new { message = "The Verficitaion code is being sent." });
                     }
                 }
 
-                return BadRequest("Failed to create user.");
+                return BadRequest(new { message = "Failed to create user." });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return BadRequest("Something went wrong.");
+                return BadRequest(new { message = "Something went wrong." });
             }
         }
 
@@ -141,7 +141,7 @@ namespace microservice.Web.API.Controllers
                 var oldUser = _usersService.GetById(dto.Id);
 
                 if (oldUser == null)
-                    return BadRequest("User does not exist.");
+                    return BadRequest(new { message = "User does not exist." });
 
 
                 var user = _mapper.Map<User>(dto);
@@ -149,7 +149,7 @@ namespace microservice.Web.API.Controllers
                 var res = _usersService.Update(oldUser, user);
 
                 if (res)
-                    return Ok("User details have been updated.");
+                    return Ok(new { message = "User details have been updated." });
 
                 return BadRequest("Failed to update user details.");
 
@@ -157,7 +157,7 @@ namespace microservice.Web.API.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return BadRequest("Something went wrong.");
+                return BadRequest(new { message = "Something went wrong." });
             }
         }
 
@@ -171,25 +171,25 @@ namespace microservice.Web.API.Controllers
                 var tempUser = _usersService.GetById(id);
 
                 if (tempUser == null)
-                    return BadRequest("User does not exist.");
+                    return BadRequest(new { message = "User does not exist." });
 
 
                 if (!tempUser.IsActive)
-                    return BadRequest("User already deleted.");
+                    return BadRequest(new { message = "User already deleted." });
 
                 var res = _usersService.Delete(tempUser);
 
                 if (res)
-                    return Ok("User has been deleted.");
+                    return Ok(new { message = "User has been deleted." });
 
 
-                return BadRequest("User has not been deleted.");
+                return BadRequest(new { message = "User has not been deleted." });
 
             }
             catch(Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return BadRequest("Something went wrong.");
+                return BadRequest(new { message = "Something went wrong." });
             }
         }
 
@@ -202,7 +202,7 @@ namespace microservice.Web.API.Controllers
                 var user = _usersService.GetAllAsQueryable().Where(x => x.PhoneNumber == dto.PhoneNumber).FirstOrDefault();
 
                 if (user == null)
-                    return BadRequest("User does not exist.");
+                    return BadRequest(new { message = "User does not exist." });
 
                 var res = _usersService.AuthenticateCode(dto.code, user);
 
@@ -214,13 +214,13 @@ namespace microservice.Web.API.Controllers
                     });
        
 
-                return BadRequest("User has not been authenticated.");
+                return BadRequest(new { message = "User has not been authenticated." });
 
             }
             catch(Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return BadRequest("Something went wrong.");
+                return BadRequest(new { message = "Something went wrong." });
             }
         }
     }
