@@ -161,7 +161,6 @@ namespace microservice.Web.API.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("Delete/{id}")]
         public IActionResult Delete(Guid id)
@@ -210,7 +209,8 @@ namespace microservice.Web.API.Controllers
                     return Ok(new
                     {
                         id = user.Id,
-                        isAdmin = _usersService.UserIsAdmin(user.Id)
+                        isAdmin = _usersService.UserIsAdmin(user.Id),
+                        token = StaticFunctions.GenerateJwtToken(user.Id)
                     });
        
 
