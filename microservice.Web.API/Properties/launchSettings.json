@@ -9,7 +9,6 @@
   },
   "profiles": {
     "microservice.Web.API": {
-      "launchUrl": "swagger",
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

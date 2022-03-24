@@ -20,8 +20,8 @@ options.AddDefaultPolicy(builder =>
 {
     builder.AllowAnyHeader()
     .AllowAnyMethod()
-    .SetIsOriginAllowed(origin => true)
-    .AllowCredentials();
+    .AllowCredentials()
+    .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
 }));
 
 
@@ -60,6 +60,11 @@ app.UseAuthentication();
 
 app.MapControllers();
 
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.RoutePrefix = String.Empty;
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "users-microservice");
+    options.InjectStylesheet("/swagger/custom.css");
+});
 
 app.Run();

@@ -27,7 +27,6 @@ namespace microservice.Web.API.Controllers
             _httpClientService = httpClientService;
         }
 
-
         [HttpGet]
         [Route("IsActive/{id}")]
         public IActionResult UserIsActive(Guid id)
@@ -210,7 +209,9 @@ namespace microservice.Web.API.Controllers
                     return Ok(new
                     {
                         id = user.Id,
-                        isAdmin = _usersService.UserIsAdmin(user.Id)
+                        isAdmin = _usersService.UserIsAdmin(user.Id),
+                        firstName = user.FirstName,
+                        lastName = user.LastName
                     });
        
 
