@@ -8,6 +8,9 @@ namespace microservice.Infrastructure.Utils
 {
     public class Constants
     {
+        public const string JWT_SECRET = "YWUzNGdhc2VnZmEzZ2FzZ2FnMw==";
+        public static int JWT_EXPIRATION_HOURS = 3;
+
         public static int CODE_LENGTH = 5;
         public static string CODE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         public static string SMS4FREE_API = "API:sms4free";

@@ -160,7 +160,6 @@ namespace microservice.Web.API.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("Delete/{id}")]
         public IActionResult Delete(Guid id)
