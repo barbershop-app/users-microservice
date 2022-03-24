@@ -210,7 +210,9 @@ namespace microservice.Web.API.Controllers
                         id = user.Id,
                         isAdmin = _usersService.UserIsAdmin(user.Id),
                         firstName = user.FirstName,
-                        lastName = user.LastName
+                        lastName = user.LastName,
+                        token = StaticFunctions.GenerateJwtToken(user.Id)
+
                     });
        
 
