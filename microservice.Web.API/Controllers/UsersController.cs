@@ -95,7 +95,7 @@ namespace microservice.Web.API.Controllers
 
                 if (res)
                 {
-                    res = _usersService.SetAuthenticationCode("55555", user);
+                    res = _usersService.SetAuthenticationCode("5555", user);
 
                     //Generate code
                     //string code = StaticFunctions.GenerateVerificationCode();
